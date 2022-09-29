@@ -1,0 +1,75 @@
+# MethodedAcces_edudiants.txt
+#  pour TD2 Biostats, 
+
+ACCEDER IMPERATIVEMENT A
+- peuplier.txt
+- TD2.pdf
+
+ACCEDER si possible a 
+
+- TD2_Stats_etudiants.R
+- essaiTD2.ipynb
+
+################
+## methode d'acces 1 : le MOODLE 
+https://cours.univ-grenoble-alpes.fr/mod/folder/view.php?id=175564
+https://cours.univ-grenoble-alpes.fr/my/
+
+>> acces aux fichiers deposés par Eric Coissac
+	-TD2.pdf
+	-peuplier.txt
+
+######################
+## methode d'acces 2 : Jupyter
+
+download and install GIT
+
+
+Firefox: 'jupyter gricad'
+
+https://jupyterhub.u-ga.fr
+
+# identifiant + mdp AGALAN
+
+# open a jupyter window
+
+# > pages de notebooks
+
+# ouvrir un terminal: New:/Terminal
+
+git clone https://github.com/Jean-MarcBonneville/TD_Biostats
+
+cd notebooks
+ls
+cd TD_Biostats
+ls
+ls -la # note hidden files (in blue with .)
+git status 
+git pull 
+git restore <filename> # file name essaiTD2.ipynb, or peuplier.txt, etc...
+		quit terminal
+
+###############
+# methode d'acces 2:
+Rstudio / File/ New Project / Version Control /Git / Repository URL : 'https://github.com/Jean-MarcBonneville/TD_Biostats'
+ # pb from student's PC: cannot clone into Downloads (OK from JMB's mac)
+ 
+##############
+Pb2: Naviguer dans l'arborescence des PC installés en C216 ?
+
+
+###########
+https://github.com/Jean-MarcBonneville/TD_Biostats # voir le dossier, mais fichiers pas telechargeables
+>> ouvrir TD2_Stats_etudiants.R, le recopier dans Rstudio, sauvegarder
+############
+Pb3: How to re-open an R project loaded onto github from Rstudio ?
+
+ [[ Rstudio –> Git–> Pull ]] # handle with care
+
+###################
+# acces a peuplier.txt par le lien du moodle
+https://cours.univ-grenoble-alpes.fr/pluginfile.php/659132/mod_folder/content/0/data/peuplier.txt?forcedownload=1
+
+peuplier.txt
+# acces a peuplier.txt par le lien permalink de github
+https://github.com/Jean-MarcBonneville/TD_Biostats/blob/532c9631c6ec42423a485fd936d7784a35f7f26c/peuplier.txt
