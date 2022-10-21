@@ -1,3 +1,4 @@
+
 # TD5_etudiants.R
 
 # Objectif Regression lineaire
@@ -14,7 +15,7 @@ graphics.off()
 getwd()
 
 # setwd('./Documents/Enseignement/TD Stats Coissac/')
-setwd('~/Documents/Enseignement/TD Stats Coissac/')
+setwd('~/Documents/Enseignement/TD Stats Coissac2021/')
 
 peuplier <-  read.table('./peuplier.txt', header = TRUE)
 
@@ -91,7 +92,8 @@ peuplier2$Poids[15] <- 0.7 #  equivalent
 peuplier2$ddh <-  ddh
 
 plot(peuplier2)
-# Calcul des paramètres du modèle ########
+# Calcul des paramètres du modèle ########
+ml0 <- lm(Poids ~ Diametre**2 * Hauteur, data=peuplier2)
 
 ml <-  lm(Poids~ ddh, data = peuplier2)
 ml
@@ -138,7 +140,7 @@ summary(ml)$coefficients['ddh', 'Pr(>|t|)']<1e-6
 
 #completer graphiquement pour Ho
 {abline(h=mean(peuplier2$Poids), col='blue')
-text(x=100, y=0.3, paste0('H0 : slope=0, P< 1e-6' ), col='blue', cex=0.7)
+  text(x=100, y=0.3, paste0('H0 : slope=0, P< 1e-6' ), col='blue', cex=0.7)
 }
 
 #' Un peu de geometrie !
@@ -146,7 +148,7 @@ text(x=100, y=0.3, paste0('H0 : slope=0, P< 1e-6' ), col='blue', cex=0.7)
 #' etonnant ? volume d'un cone V=1/3* pi * D**2/4 * H
 #' Conclusion ?
 
-# 3.2 Etude des résidus #######
+# 3.2 Etude des résidus #######
 names(ml)
 ml$residuals
 
@@ -169,16 +171,16 @@ hist(residus)
 plot(peuplier2$ddh,y=rstudent(ml),ylim=c(-3,3))
 # Il y a une erreur dans le TD ! ne pas se mettre d'oeilleres !!
 
-  plot(peuplier2$ddh,y=rstudent(ml),#ylim=c(-3,3)
-     )
-  
-  
+plot(peuplier2$ddh,y=rstudent(ml),#ylim=c(-3,3)
+)
+
+
 {
-    plot(peuplier2$ddh,y=rstudent(ml),ylim=c(-7,3))
-    
-    abline(0,0,lty=1)
-    abline(-2,0,lty=2)
-    abline(2,0,lty=2)
+  plot(peuplier2$ddh,y=rstudent(ml),ylim=c(-7,3))
+  
+  abline(0,0,lty=1)
+  abline(-2,0,lty=2)
+  abline(2,0,lty=2)
 }
 
 #' quel type de distribution sur le plot obtiendrait-on 
@@ -193,18 +195,37 @@ abline(-2,0,lty=2, col='blue')
 abline(2,0,lty=2, col='blue')
 
 
-quartz(w=10)
+# quartz(w=10)
+# par(mfrow=c(1,2))
+# plot(Poids~ ddh,  data=peuplier2)
+# text(x = peuplier2$ddh , y = peuplier2$Poids-0.03, labels = c(1:20))
+# abline(a=ml$coefficients[1], b=ml$coefficients[2], col='red')
+# 
+# plot(peuplier2$ddh,y=rstudent(ml))
+# abline(h=0, col='red')
+# abline(h=2, col-'red')
+# abline(h=-2, col-'red')
+
+graphics.off()
+quartz(w=10, h=6)
 par(mfrow=c(1,2))
 plot(Poids~ ddh,  data=peuplier2)
-text(x = peuplier2$ddh , y = peuplier2$Poids-0.03, labels = c(1:20))
+text(x = peuplier2$ddh , y = peuplier2$Poids-0.03, labels = c(1:20),
+     col='blue', cex=0.5)
 abline(a=ml$coefficients[1], b=ml$coefficients[2], col='red')
 
-plot(peuplier2$ddh,y=rstudent(ml))
+#plot(peuplier2$ddh,y=rstudent(ml))
+plot(peuplier2$ddh,y=rstudent(ml), xlim=c(0, 150))
 abline(h=0, col='red')
-abline(h=2, col-'red')
-abline(h=-2, col-'red')
+abline(h=2, col='red', lty=2)
+abline(h=-2, col='red', lty=2)
+text(x = peuplier2$ddh+5,y=rstudent(ml) , labels = c(1:20), 
+     col='blue', cex=0.5)
 
-# 4 Régression linéaire mupl    #####
+dev.copy2pdf(file='./residus_peuplier_ddh.pdf')
+
+
+# 4 Régression linéaire mupl    #####
 # la chenille processionnaire du pin ##
 
 pin<-read.table("pin.txt",h=T)
@@ -242,11 +263,11 @@ plot(pin)
 #' PIN: enoncer l'hypothese nulle
 #' ecrire le modele alternatif y= a1*x1 + a2*x2 + ... + epsilon
 #' 
- lm1 <- lm(proce ~ alt + pente + densi + haut +diam, data=pin)
+lm1 <- lm(proce ~ alt + pente + densi + haut +diam, data=pin)
 lm1
- lm2 <- lm(proce ~ alt + pente + haut +diam, data=pin)
+lm2 <- lm(proce ~ alt + pente + haut +diam, data=pin)
 
- lm1
+lm1
 lm2
 
 summary(lm1)
@@ -254,7 +275,7 @@ summary(lm2)
 
 #' noter l'analyse de la variance sous jacente
 
-# 4.4 Recherche du meilleur modèle#######
+# 4.4 Recherche du meilleur modèle#######
 
 #'Il a bossé pendant des jours 
 #'Tâchant avec amour 
@@ -312,7 +333,7 @@ residus<-pin.lm2$residuals
 shapiro.test(residus) # 
 
 plot(x=pin$proce, y=rstudent(pin.lm2),#ylim=c(-3,3)
-     )
+)
 plot(x=pin$proce, y=rstudent(pin.lm2),ylim=c(-3,3))
 abline(+2,0,lty=2) 
 abline(0,0,lty=1) 
@@ -320,51 +341,3 @@ abline(-2,0,lty=2)
 
 ##########
 
-head(peuplier2)
-peuplier2$logPoids <- log(peuplier2$Poids)
-peuplier2$log_ddh <- log(peuplier2$ddh)
-
-plot(y = peuplier2$ddh, x=peuplier2$logPoids)
-plot(y = peuplier2$log_ddh, x=peuplier2$logPoids)
-
-mlog <- lm(peuplier2$logPoids ~ peuplier2$log_ddh)
-mlog
-summary(mlog)
-summary(ml)
-
-residus <- mlog$residuals
-hist(residus)
-
-shapiro.test(residus)
-
-plot(x=peuplier2$log_ddh,y=rstudent(mlog),ylim=c(-3,3)) 
-plot(x=peuplier2$log_ddh,y=rstudent(mlog),#ylim=c(-3,3)
-     ) 
-
-  text(x=peuplier2$log_ddh,y=rstudent(mlog),label=(1:20),adj=1.5,cex=0.8) 
-  abline(+2,0,lty=2)
-abline(0,0,lty=1)
-abline(-2,0,lty=2)
-
-graphics.off()
-quartz()
-par(mfcol=c(2,2))
-hist(residus, col='blue')
-plot(y=peuplier2$log_ddh,x= residus,col='blue', ylab='log(ddh)'
-) 
-
-#text(y=peuplier2$log_ddh,x=residus,label=(1:20),adj=1.5,cex=0.8) 
-plot(x=peuplier2$log_ddh,y= residus,col='blue', xlab='log(ddh)'
-) 
-text(x=peuplier2$log_ddh,y=residus,label=(1:20),adj=1.5,cex=0.8) 
-
-plot(x=peuplier2$log_ddh,y=rstudent(mlog),ylim=c(-3,3),  xlab='log(ddh)'
-) 
-text(x=peuplier2$log_ddh,y=rstudent(mlog),label=(1:20),adj=1.5,cex=0.8) 
-
-abline(+2,0,lty=2)
-abline(0,0,lty=1)
-abline(-2,0,lty=2)
-
-#noter la distribution uniforme des residus sur la variable independante,
-# gage d'une fiabilité du modele sur toute la gamme etudiee
