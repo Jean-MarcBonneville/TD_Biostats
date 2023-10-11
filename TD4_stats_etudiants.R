@@ -266,6 +266,9 @@ length(x)-k # 46 ddl au denominateur
 
 1 -pf(Fc, 4, 45)
 # c'etait quoi Ho, deja ?
+      boxplot(BCG)
+      graphics.off()
+      boxplot(BCG)
 # conclusion ?
 
 # 1.6 Utilisation de la fonction d’ANOVA intégré à   R######
